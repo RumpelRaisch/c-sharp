@@ -5,28 +5,36 @@
         Title="MainWindow" Height="350" Width="525" WindowStyle="None" Background="#242728" AllowsTransparency="True" ResizeMode="NoResize">
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="HideShowBtn">
+            <VisualStateGroup x:Name="SlideInOut">
                 <VisualStateGroup.Transitions>
                     <VisualTransition GeneratedDuration="0:0:0.3"/>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="ShowNow">
+                <VisualState x:Name="Out"/>
+                <VisualState x:Name="In">
                     <Storyboard>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="BtnPanel">
-                            <EasingDoubleKeyFrame KeyTime="0" Value="-37"/>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="SlidePanel">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="-247.86"/>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="HideNow"/>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Rectangle x:Name="ShowBtn" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="31" Stroke="Black" VerticalAlignment="Top" Width="525" Opacity="0">
+        <Button x:Name="BtnSlideIn" Content="Slide In" HorizontalAlignment="Left" Margin="440,318,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.232,0.823">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseEnter">
-                    <ei:GoToStateAction StateName="ShowNow"/>
+                <i:EventTrigger EventName="Click">
+                    <ei:GoToStateAction StateName="In"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Rectangle>
-        <StackPanel x:Name="BtnPanel" HorizontalAlignment="Left" Height="31" Margin="527,0,-37,0" VerticalAlignment="Top" Width="35" RenderTransformOrigin="0.5,0.5">
+        </Button>
+        <Button x:Name="BtnSlideOut" Content="Slide Out" HorizontalAlignment="Left" Margin="360,318.04,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.232,0.823">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:GoToStateAction StateName="Out"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Button x:Name="BtnShutdown" Content="Close" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Width="75" Click="Shutdown"/>
+        <StackPanel x:Name="SlidePanel" HorizontalAlignment="Right" Height="100" Margin="0,9.86,-268,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.5,0.5">
             <StackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -35,23 +43,16 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </StackPanel.RenderTransform>
-            <Button x:Name="Close" Content="X" Height="29" Click="Close_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FFF3F3F3" Offset="1"/>
-                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                        <GradientStop Color="#FFCDCDCD"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+            <Grid>
+                <Rectangle x:Name="SlideRect" Fill="#FF5BC0DE" HorizontalAlignment="Left" Height="100" Stroke="Black" Width="260" RadiusX="5" RadiusY="5" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <Rectangle.BitmapEffect>
+                        <DropShadowBitmapEffect Color="Black" Direction="245" ShadowDepth="3" Softness="1" Opacity="0.4"/>
+                    </Rectangle.BitmapEffect>
+                </Rectangle>
+                <TextBlock x:Name="RsTest" HorizontalAlignment="Left" TextWrapping="Wrap" Text="RS Test" Width="115" Foreground="White" FontFamily="Trebuchet MS" FontSize="24" Panel.ZIndex="1" Margin="51,28,0,44.133"/>
+                <TextBlock x:Name="RsTestSmall" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Smaller test text." Width="199" Foreground="White" FontFamily="Trebuchet MS" FontSize="14" Panel.ZIndex="1" Margin="52,0,0,16.266" Height="27.867" VerticalAlignment="Bottom"/>
+                <Image x:Name="InfoIcon" HorizontalAlignment="Left" Height="37" Margin="10,33,0,0" VerticalAlignment="Top" Width="36" Source="Media/info.png" Panel.ZIndex="2"/>
+            </Grid>
         </StackPanel>
-        <Rectangle x:Name="HideBtn" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="0,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="525" Opacity="0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseEnter">
-                    <ei:GoToStateAction StateName="HideNow"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Rectangle>
     </Grid>
 </Window>
